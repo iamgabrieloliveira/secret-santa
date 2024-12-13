@@ -1,7 +1,6 @@
-use crate::routes::{add_participants, generate_links, reveal_gift};
+use crate::routes::{add_participants, clear, generate_links, participants, reveal_gift};
 use crate::state::AppState;
 use axum::{routing::get, routing::post, Router};
-use routes::clear;
 use std::net::SocketAddr;
 use std::sync::Arc;
 
@@ -19,10 +18,11 @@ async fn main() {
         .route("/clear", get(clear::clear))
         .route("/submit", post(add_participants::submit))
         .route("/generate-links", get(generate_links::generate))
+        .route("/list-participants", get(participants::list))
         .route("/reveal/:id", get(reveal_gift::reveal))
         .with_state(state);
 
-    let addr = SocketAddr::from(([127, 0, 0, 1], 3000));
+    let addr = SocketAddr::from(([0, 0, 0, 0], 3000));
     println!("Server running at http://{}", addr);
 
     axum::Server::bind(&addr)

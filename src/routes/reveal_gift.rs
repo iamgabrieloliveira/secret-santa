@@ -9,8 +9,11 @@ pub async fn reveal(
     let mut links = state.links.lock().unwrap();
 
     if let Some(recipient) = links.remove(&id) {
-        Html(format!("You need to gift: {}", recipient))
+        Html(format!(
+            "Você tem que dar um presente para... {}",
+            recipient
+        ))
     } else {
-        Html("Invalid or expired link.".to_string())
+        Html("Link invalido ou expirado.".to_string())
     }
 }

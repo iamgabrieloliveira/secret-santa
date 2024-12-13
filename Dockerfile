@@ -17,4 +17,6 @@ RUN cargo build --release --bin secret-santa
 FROM debian:bookworm-slim AS runtime
 WORKDIR /app
 COPY --from=builder /app/target/release/secret-santa /usr/local/bin
+
+EXPOSE 3000
 ENTRYPOINT ["/usr/local/bin/secret-santa"]
